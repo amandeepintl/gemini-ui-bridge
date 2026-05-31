@@ -18,6 +18,7 @@ It is local, browser-based, and honest about its limits. No Gemini API key. No p
 
 - [what this does](#what-this-does)
 - [how it works](#how-it-works)
+- [interactive website](#interactive-website)
 - [screenshots](#screenshots)
 - [install](#install)
 - [claude desktop setup](#claude-desktop-setup)
@@ -98,6 +99,24 @@ These are sanitized previews. Real account names, chat sidebars, browser cookies
 ### Claude sees MCP tools
 
 ![Claude MCP tool preview](docs/assets/claude-tool-list-preview.png)
+
+## interactive website
+
+There is also a more visual 3D explainer site in `docs/`.
+
+Run it locally:
+
+```powershell
+npm run site
+```
+
+Then open:
+
+```text
+http://127.0.0.1:4173
+```
+
+It explains the whole flow with a 3D bridge map, clickable steps, tool cards, screenshots, and the security checklist.
 
 ## install
 

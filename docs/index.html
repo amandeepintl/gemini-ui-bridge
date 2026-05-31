@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gemini UI Bridge explained with an interactive 3D walkthrough: MCP, Claude, Gemini web UI, archives, hidden browser mode, and security checks.">
+  <title>Gemini UI Bridge - Interactive Explainer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Gemini UI Bridge home">
+      <span class="brand-mark" aria-hidden="true">G</span>
+      <span>Gemini UI Bridge</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#flow">Flow</a>
+      <a href="#tools">Tools</a>
+      <a href="#security">Security</a>
+      <a href="#setup">Setup</a>
+    </nav>
+    <button class="icon-button" id="motionToggle" type="button" aria-label="Pause 3D motion" title="Pause 3D motion">
+      <span class="pause-icon" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas id="bridgeCanvas" aria-label="Interactive 3D bridge diagram"></canvas>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="eyebrow">No paid API key. Local browser. MCP tools.</p>
+        <h1 id="hero-title">Make Claude talk to Gemini through your own browser.</h1>
+        <p class="hero-copy">
+          A local bridge that opens Gemini web, pastes prompts, waits for the visible result,
+          saves the run, and hands it back to your AI app.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#setup">Start the walkthrough</a>
+          <button class="secondary-action" type="button" data-copy="npm run security-check">Copy safety check</button>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Live bridge stats">
+        <div class="panel-row">
+          <span>Tools</span>
+          <strong>18</strong>
+        </div>
+        <div class="panel-row">
+          <span>Private folders</span>
+          <strong>ignored</strong>
+        </div>
+        <div class="panel-row">
+          <span>Browser mode</span>
+          <strong>offscreen</strong>
+        </div>
+      </aside>
+      <div class="scroll-hint">Scroll for the actual map</div>
+    </section>
+
+    <section class="section intro-band" aria-labelledby="truth-title">
+      <div class="section-kicker">The honest version</div>
+      <div class="split">
+        <div>
+          <h2 id="truth-title">This is a clever personal bridge, not a fake API.</h2>
+          <p>
+            It drives the Gemini website the way a careful human would. That makes it useful for a local
+            assistant workflow, but it also means login checks, UI changes, and media downloads can still need you.
+          </p>
+        </div>
+        <div class="rating-grid" aria-label="Project usefulness ratings">
+          <div class="rating-item"><span>Personal assistant</span><strong>7.5/10</strong></div>
+          <div class="rating-item"><span>Creative workflow</span><strong>8/10</strong></div>
+          <div class="rating-item"><span>Production backend</span><strong>2/10</strong></div>
+          <div class="rating-item"><span>API replacement</span><strong>3/10</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section flow-section" id="flow" aria-labelledby="flow-title">
+      <div class="section-kicker">Interactive flow</div>
+      <h2 id="flow-title">Tap a step and the bridge map changes.</h2>
+      <p class="section-copy">
+        The bridge has one job: let another AI call Gemini without touching your password,
+        cookies, or a paid API key.
+      </p>
+
+      <div class="flow-layout">
+        <div class="flow-steps" role="list" aria-label="Bridge flow steps">
+          <button class="flow-step active" type="button" data-step="claude" role="listitem">
+            <span class="step-index">01</span>
+            <strong>Claude asks for a tool</strong>
+            <span>Claude calls MCP, not Gemini directly.</span>
+          </button>
+          <button class="flow-step" type="button" data-step="mcp" role="listitem">
+            <span class="step-index">02</span>
+            <strong>MCP chooses the Gemini mode</strong>
+            <span>chat, image, video, music, canvas, upload.</span>
+          </button>
+          <button class="flow-step" type="button" data-step="browser" role="listitem">
+            <span class="step-index">03</span>
+            <strong>Browser does the work</strong>
+            <span>It pastes the prompt into your signed-in Gemini UI.</span>
+          </button>
+          <button class="flow-step" type="button" data-step="archive" role="listitem">
+            <span class="step-index">04</span>
+            <strong>Stuff gets saved</strong>
+            <span>Every run gets prompt, response, screenshot, JSON, media.</span>
+          </button>
+        </div>
+
+        <div class="flow-stage" aria-live="polite">
+          <div class="stage-header">
+            <span id="stageLabel">Current step</span>
+            <strong id="stageTitle">Claude asks for a tool</strong>
+          </div>
+          <div class="stage-diagram" id="stageDiagram">
+            <span class="node active" data-node="claude">Claude</span>
+            <span class="line"></span>
+            <span class="node" data-node="mcp">MCP</span>
+            <span class="line"></span>
+            <span class="node" data-node="browser">Browser</span>
+            <span class="line"></span>
+            <span class="node" data-node="gemini">Gemini</span>
+            <span class="line"></span>
+            <span class="node" data-node="archive">Stuff</span>
+          </div>
+          <p id="stageCopy">
+            Claude sees named MCP tools like gemini_prompt and gemini_create_image. The bridge guide tells it how to use them carefully.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section media-section" aria-labelledby="screens-title">
+      <div class="section-kicker">Real visuals, sanitized</div>
+      <h2 id="screens-title">The README screenshots are safe on purpose.</h2>
+      <p class="section-copy">
+        One screenshot is cropped from a real run. The others are generated preview screens so your account,
+        chat list, cookies, and local prompts do not leak.
+      </p>
+      <div class="showcase-grid">
+        <figure class="showcase wide">
+          <img src="assets/gemini-chat-sanitized.png" alt="Sanitized Gemini UI prompt and response">
+          <figcaption>Gemini UI, cropped to remove account/sidebar data.</figcaption>
+        </figure>
+        <figure class="showcase">
+          <img src="assets/stuff-gallery-preview.png" alt="Saved-output gallery preview">
+          <figcaption>The local stuff gallery explains where files go.</figcaption>
+        </figure>
+        <figure class="showcase">
+          <img src="assets/claude-tool-list-preview.png" alt="Claude MCP tools preview">
+          <figcaption>A safe Claude-style MCP tool preview.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section tools-section" id="tools" aria-labelledby="tools-title">
+      <div class="section-kicker">Tool console</div>
+      <div class="split">
+        <div>
+          <h2 id="tools-title">Pick a Gemini mode.</h2>
+          <p>
+            The MCP exposes focused tools so Claude does not have to guess which part of Gemini to open.
+            Click a tool below to see the recommended use.
+          </p>
+        </div>
+        <div class="tool-output" id="toolOutput">
+          <span>Selected tool</span>
+          <strong>gemini_prompt</strong>
+          <p>Normal text chat through Gemini web. Best first test after login.</p>
+        </div>
+      </div>
+      <div class="tool-grid" aria-label="Gemini MCP tools">
+        <button class="tool-chip active" type="button" data-tool="gemini_prompt" data-desc="Normal text chat through Gemini web. Best first test after login.">gemini_prompt</button>
+        <button class="tool-chip" type="button" data-tool="gemini_create_image" data-desc="Opens Create image and sends one polished prompt. Great for visual ideas.">gemini_create_image</button>
+        <button class="tool-chip" type="button" data-tool="gemini_create_video" data-desc="Opens Create video. Use clear motion, camera, duration, and constraints.">gemini_create_video</button>
+        <button class="tool-chip" type="button" data-tool="gemini_create_music" data-desc="Opens Create music. Describe genre, mood, tempo, instruments, and vocals.">gemini_create_music</button>
+        <button class="tool-chip" type="button" data-tool="gemini_upload_file" data-desc="Uploads a local file to Gemini and optionally asks a prompt about it.">gemini_upload_file</button>
+        <button class="tool-chip" type="button" data-tool="gemini_open_stuff" data-desc="Opens the gallery or newest archive folder so you can inspect outputs.">gemini_open_stuff</button>
+      </div>
+    </section>
+
+    <section class="section security-section" id="security" aria-labelledby="security-title">
+      <div class="section-kicker">Security first</div>
+      <h2 id="security-title">The stuff that should never go to GitHub.</h2>
+      <p class="section-copy">
+        This project controls a real browser profile. That profile is basically a logged-in browser, so it stays local.
+      </p>
+      <div class="security-board">
+        <div class="security-item safe">
+          <span>Tracked</span>
+          <strong>source code</strong>
+          <p>README, scripts, MCP server, static site, examples.</p>
+        </div>
+        <div class="security-item blocked">
+          <span>Ignored</span>
+          <strong>.env</strong>
+          <p>Local settings and optional bridge tokens.</p>
+        </div>
+        <div class="security-item blocked">
+          <span>Ignored</span>
+          <strong>profiles/</strong>
+          <p>Browser cookies and Gemini login session.</p>
+        </div>
+        <div class="security-item blocked">
+          <span>Ignored</span>
+          <strong>stuff/</strong>
+          <p>Private prompts, screenshots, generated media.</p>
+        </div>
+      </div>
+      <div class="terminal-card">
+        <div class="terminal-bar">safe push checklist</div>
+        <pre><code>npm run security-check
+git status --ignored
+git push</code></pre>
+      </div>
+    </section>
+
+    <section class="section setup-section" id="setup" aria-labelledby="setup-title">
+      <div class="section-kicker">Setup path</div>
+      <h2 id="setup-title">Four commands, then Claude can see the tools.</h2>
+      <div class="command-stack">
+        <button type="button" data-copy="git clone https://github.com/amandeepintl/gemini-ui-bridge.git">git clone https://github.com/amandeepintl/gemini-ui-bridge.git</button>
+        <button type="button" data-copy="npm install">npm install</button>
+        <button type="button" data-copy="Copy-Item .env.example .env">Copy-Item .env.example .env</button>
+        <button type="button" data-copy="npm run launch-browser">npm run launch-browser</button>
+      </div>
+      <p class="setup-note">
+        After login, add the MCP config to Claude Desktop and ask it: "Call gemini_read_guide, then gemini_status."
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Gemini UI Bridge</span>
+    <a href="https://github.com/amandeepintl/gemini-ui-bridge">GitHub repo</a>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+  <script type="module" src="site.js"></script>
+</body>
+</html>

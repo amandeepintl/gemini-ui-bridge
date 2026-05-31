@@ -16,6 +16,7 @@
     "browser-hide": "node --max-old-space-size=64 src/browser-visibility.js offscreen",
     "browser-show": "node --max-old-space-size=64 src/browser-visibility.js visible",
     "browser-minimize": "node --max-old-space-size=64 src/browser-visibility.js minimized",
+    "site": "node scripts/serve-docs.js",
     "security-check": "node scripts/security-check.js",
     "ensure-browser": "node --max-old-space-size=128 src/ensure-browser-installed.js",
     "install-browser": "npx playwright install chromium"

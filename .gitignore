@@ -17,5 +17,6 @@ downloads/
 
 # local noise
 *.log
+.site-server.pid
 .DS_Store
 Thumbs.db
