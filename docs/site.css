@@ -21,6 +21,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -312,6 +313,7 @@ h2 {
 
 .section {
   position: relative;
+  scroll-margin-top: 90px;
   padding: clamp(70px, 11vw, 150px) clamp(18px, 5vw, 72px);
   border-top: 1px solid var(--line);
 }

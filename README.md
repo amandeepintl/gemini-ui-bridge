@@ -1,108 +1,72 @@
-# gemini ui bridge
+# Gemini UI Bridge
 
-> use ur Gemini web plan from other local AI apps ( specially Claude Desktop ) without paying for the Gemini API.
+Gemini UI Bridge is a local MCP and REST bridge for people who already use Gemini in the browser and want another AI app, like Claude Desktop, to send prompts to it.
 
-i made this because api pricing is annoying and sometimes u already have Gemini sitting open in the browser. this bridge lets an MCP client, like Claude Desktop, use the real Gemini website through your own signed-in Chrome/Edge profile.
+It does not use the paid Gemini API. It uses your signed-in Gemini web session in a separate local browser profile, sends the prompt, waits for the visible response, and saves the run in `stuff/`.
 
-it is local, browser-based, and honest about the limits. no Gemini API key, no paid API calls, no weird cookie export stuff.
+This is useful when you want to connect your Gemini subscription to a local assistant workflow without paying for another API bill.
 
-![Gemini UI bridge screenshot](docs/assets/gemini-chat.png)
+![Gemini UI Bridge screenshot](docs/assets/gemini-chat.png)
 
-<p>
-  <b>Status:</b> personal tool, not production infra<br>
-  <b>Works through:</b> Chrome/Edge + Playwright + MCP<br>
-  <b>Best for:</b> making Claude use Gemini web without another api bill
-</p>
+## What It Can Do
 
-## quick map
-
-- [what this does](#what-this-does)
-- [how it works](#how-it-works)
-- [interactive website](#interactive-website)
-- [screenshots](#screenshots)
-- [install](#install)
-- [claude desktop setup](#claude-desktop-setup)
-- [daily use](#daily-use)
-- [saved outputs](#saved-outputs)
-- [security rules](#security-rules)
-- [zero-cost quality upgrades](#zero-cost-quality-upgrades)
-
-## what this does
-
-| thing | supported |
+| Feature | Status |
 | --- | --- |
-| normal Gemini chat | yes |
-| Create image | yes |
-| Create video | yes |
-| Create music | yes |
-| Canvas | yes |
-| Guided Learning | yes |
-| upload local files | yes |
-| archive prompts/responses/screenshots | yes |
-| hide the browser offscreen | yes |
-| official Gemini API replacement | no |
+| Normal Gemini chat | Supported |
+| Gemini Create image | Supported |
+| Gemini Create video | Supported |
+| Gemini Create music | Supported |
+| Gemini Canvas | Supported |
+| Guided Learning | Supported |
+| Local file upload | Supported |
+| Saved output folders | Supported |
+| Hidden/offscreen browser mode | Supported |
+| Official Gemini API replacement | Not supported |
 
-this is useful if u want Claude or another local AI to say: "ask Gemini this", "make an image prompt", "open Gemini image mode", "save the output", and stuff like that.
+## What This Project Is
 
-it is not useful if u need 24/7 production reliability. Gemini can change the UI and break browser automation. that is the trade.
+This project is browser automation. It controls Gemini through the same website you normally use.
 
-## how it works
+That makes it good for personal use, testing prompts, creative runs, file uploads, and connecting Claude Desktop to Gemini web features.
+
+## What This Project Is Not
+
+This is not an official Google API, and it is not meant to bypass Google limits, login checks, account protections, or plan rules.
+
+Because it uses the website, it has normal browser-automation limits:
+
+- Gemini UI changes can break selectors.
+- Login, captcha, or account checks may still need you.
+- Some image, video, or music results may need manual download.
+- It is slower and less reliable than a real API.
+- It is not a good choice for a production backend.
+
+For a personal assistant setup, it is useful. For a real production app, use an official API.
+
+## How It Works
 
 ```mermaid
 flowchart LR
-  User["you / Claude / local AI"] --> MCP["gemini-ui-bridge MCP"]
-  MCP --> Browser["local Chrome or Edge profile"]
+  User["Claude / local AI"] --> MCP["Gemini UI Bridge MCP"]
+  MCP --> Browser["Local Chrome or Edge profile"]
   Browser --> Gemini["Gemini website"]
   Gemini --> Browser
-  Browser --> Archive["stuff/ dated archive folder"]
-  Archive --> Gallery["stuff/index.html gallery"]
+  Browser --> Archive["stuff/ archive folder"]
+  Archive --> Gallery["stuff/index.html"]
   MCP --> User
 ```
 
-<details open>
-<summary><b>the short version</b></summary>
+1. You sign in to Gemini in a separate local browser profile.
+2. Claude or another MCP client calls one of the bridge tools.
+3. The bridge opens the right Gemini mode.
+4. It sends your prompt through the Gemini website.
+5. It waits for the response.
+6. It saves the prompt, response, screenshot, and metadata under `stuff/`.
+7. It returns the useful result and archive path to the AI client.
 
-1. u sign in to Gemini yourself in a separate local browser profile.
-2. Claude calls an MCP tool like `gemini_prompt` or `gemini_create_image`.
-3. the bridge pastes the prompt into Gemini.
-4. it waits for the visible response.
-5. it saves the run into `stuff/YYYY-MM-DD_HH-mm-ss-SSS_tool-name/`.
-6. it returns the response and archive folder back to Claude.
+## Interactive Project Site
 
-</details>
-
-<details>
-<summary><b>why this exists</b></summary>
-
-because sometimes u do not want another paid API bill. if u already have access to Gemini web features, this gives your local AI apps a way to use that browser session.
-
-but it still behaves like browser automation, not a clean API. so use it slowly and normally, like a human using the website.
-
-</details>
-
-## screenshots / stuff
-
-just the useful visuals: Gemini answering, the stuff gallery, terminal check, and Claude seeing tools.
-
-### Gemini UI run
-
-![Gemini prompt and response](docs/assets/gemini-chat.png)
-
-### Saved-output gallery
-
-![Stuff gallery](docs/assets/stuff-gallery-preview.png)
-
-### Terminal / safety check
-
-![Terminal check](docs/assets/terminal-preview.png)
-
-### Claude sees MCP tools
-
-![Claude MCP tools](docs/assets/claude-tool-list-preview.png)
-
-## interactive website
-
-there is also a more visual 3D explainer site in `docs/`.
+The repo includes an interactive explainer site in `docs/`.
 
 Run it locally:
 
@@ -116,12 +80,27 @@ Then open:
 http://127.0.0.1:4173
 ```
 
-it explains the whole thing with a 3D bridge map, a fake run simulator, clickable tool cards, screenshots, and the security checklist.
+The site shows the full flow with a 3D diagram, a simulated run, tool cards, screenshots, and a security checklist.
 
-## install
+## Screenshots
 
-<details open>
-<summary><b>1. clone and install</b></summary>
+### Gemini Response
+
+![Gemini prompt and response](docs/assets/gemini-chat.png)
+
+### Saved Output Gallery
+
+![Saved output gallery](docs/assets/stuff-gallery-preview.png)
+
+### Terminal Check
+
+![Terminal check](docs/assets/terminal-preview.png)
+
+### Claude MCP Tools
+
+![Claude MCP tools](docs/assets/claude-tool-list-preview.png)
+
+## Install
 
 ```powershell
 git clone https://github.com/amandeepintl/gemini-ui-bridge.git
@@ -130,10 +109,9 @@ npm install
 Copy-Item .env.example .env
 ```
 
-</details>
+## First Login
 
-<details open>
-<summary><b>2. login to Gemini</b></summary>
+Run:
 
 ```powershell
 npm run launch-browser
@@ -145,30 +123,31 @@ Or double-click:
 OPEN_GEMINI_LOGIN.bat
 ```
 
-sign in manually. the login stays inside `profiles/real-browser`, which is ignored by git.
+Sign in to Gemini in the opened browser window. The login is stored in `profiles/real-browser`, which is ignored by git.
 
-</details>
+## Start The Bridge
 
-<details>
-<summary><b>3. run the bridge</b></summary>
+Normal mode:
 
 ```powershell
 npm start
 ```
 
-Or use one of the BAT files:
+Hidden/offscreen mode:
 
 ```text
-START_BRIDGE.bat
 START_BRIDGE_HIDDEN.bat
+```
+
+Low-resource mode:
+
+```text
 START_BRIDGE_ULTRA_LOW.bat
 ```
 
-</details>
+## Claude Desktop Setup
 
-## claude desktop setup
-
-add this MCP server to Claude Desktop. change the path to wherever u cloned the repo:
+Add this MCP server to Claude Desktop. Change the path to wherever you cloned the repo:
 
 ```json
 {
@@ -194,14 +173,13 @@ add this MCP server to Claude Desktop. change the path to wherever u cloned the 
 }
 ```
 
-then restart Claude and ask:
+Restart Claude Desktop, then ask:
 
 ```text
 Call gemini_read_guide, then gemini_status.
 ```
 
-<details>
-<summary><b>available MCP tools</b></summary>
+## MCP Tools
 
 ```text
 gemini_read_guide
@@ -224,10 +202,7 @@ gemini_cleanup_archives
 gemini_close
 ```
 
-</details>
-
-<details>
-<summary><b>supported Gemini UI modes</b></summary>
+## Supported Gemini Modes
 
 ```text
 chat
@@ -244,11 +219,9 @@ create_music
 guided_learning
 ```
 
-</details>
+## REST Examples
 
-## daily use
-
-### ask Gemini normally
+Send a normal prompt:
 
 ```powershell
 curl -X POST http://127.0.0.1:8787/v1/prompt `
@@ -256,7 +229,7 @@ curl -X POST http://127.0.0.1:8787/v1/prompt `
   -d "{\"prompt\":\"Reply exactly: bridge is working\"}"
 ```
 
-### use a Gemini mode
+Use a Gemini mode:
 
 ```powershell
 curl -X POST http://127.0.0.1:8787/v1/prompt `
@@ -264,24 +237,15 @@ curl -X POST http://127.0.0.1:8787/v1/prompt `
   -d "{\"tool\":\"create_image\",\"prompt\":\"Create a clean app icon for a study app.\"}"
 ```
 
-### hide or show the browser
+## Saved Outputs
 
-```text
-HIDE_GEMINI_BROWSER.bat
-SHOW_GEMINI_BROWSER.bat
-```
-
-the hidden mode moves the browser offscreen and stops it from jumping over your work. it is convenience, not security magic.
-
-## saved outputs
-
-every successful run gets a folder like:
+Every successful run gets a dated folder:
 
 ```text
 stuff/YYYY-MM-DD_HH-mm-ss-SSS_tool-name/
 ```
 
-Inside:
+Typical files:
 
 ```text
 prompt.txt
@@ -293,7 +257,7 @@ page.png
 media/
 ```
 
-failed runs are saved too:
+Failed runs are saved too:
 
 ```text
 stuff/YYYY-MM-DD_HH-mm-ss-SSS_error_tool-name/
@@ -311,64 +275,52 @@ Or double-click:
 OPEN_STUFF_GALLERY.bat
 ```
 
-## security rules
+## Security Checklist
 
-this repo is designed to avoid uploading private local stuff.
+This project controls a real browser profile, so treat the profile like a logged-in browser.
 
-never commit:
+Do not commit:
 
 - `.env`
 - `profiles/`
 - `stuff/`
-- screenshots with your account/sidebar visible
+- screenshots with private account details
 - generated files that contain private prompts
 - exported Claude config files with personal paths
-- tokens, passwords, cookies, API keys
+- tokens, passwords, cookies, or API keys
 
-before pushing:
+Before pushing:
 
 ```powershell
 npm run security-check
 git status --ignored
 ```
 
-the security check blocks obvious mistakes, but still look at `git status`. your browser profile is basically a logged-in browser, so treat it like one.
+The security check catches common mistakes, but still review `git status` yourself before pushing.
 
-## zero-cost quality upgrades
+## Getting Better Results Without Spending Money
 
-the way to make this better for free is not "spam Gemini harder". it is fewer wasted calls.
+The best way to improve quality is to waste fewer Gemini runs.
 
-Good flow:
+Recommended workflow:
 
-```mermaid
-flowchart TD
-  A["rough idea"] --> B["Claude/local AI polishes prompt"]
-  B --> C["send one strong prompt to Gemini"]
-  C --> D["archive result"]
-  D --> E["review gallery before regenerating"]
-```
+1. Let Claude or another local AI clean up the prompt first.
+2. Send one strong final prompt to Gemini.
+3. Retry only when the browser automation fails or Gemini times out.
+4. Check the `stuff/` gallery before regenerating the same idea.
+5. Keep Gemini output quality high. Do not ask for short answers unless you actually want short answers.
 
-use this pattern:
+This keeps the same Gemini limits, but gives you a better chance of getting the result you wanted.
 
-- ask Claude to improve/check the prompt first
-- send Gemini one strong final prompt
-- use `retries: 1` only for UI failures/timeouts
-- for media, include aspect ratio, duration, style, camera, mood, and negative constraints
-- do not ask Gemini for shorter output unless you actually want shorter output
+## Honest Rating
 
-same limits, better hit rate.
-
-## honest rating
-
-| use case | rating |
+| Use case | Rating |
 | --- | --- |
-| personal assistant bridge | 7.5/10 |
-| cheap creative workflow | 8/10 |
-| production integration | 2/10 |
-| official API replacement | 3/10 |
+| Personal assistant bridge | 7.5/10 |
+| Cheap creative workflow | 8/10 |
+| Production integration | 2/10 |
+| Official API replacement | 3/10 |
 
-that is the truth. it is useful, but it is still a browser bridge.
-
-## license
+## License
 
 MIT

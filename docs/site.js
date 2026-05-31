@@ -47,7 +47,7 @@ const nodes = [
   { key: "mcp", label: "MCP", x: -3.4, y: -0.5, z: -1, size: 1.05, color: palette.mcp },
   { key: "browser", label: "Browser", x: 0.2, y: 1.0, z: 0.7, size: 1.15, color: palette.browser },
   { key: "gemini", label: "Gemini", x: 3.9, y: -0.4, z: -0.8, size: 1.05, color: palette.gemini },
-  { key: "archive", label: "Stuff", x: 7.1, y: 1.0, z: 0.3, size: 1.0, color: palette.archive }
+  { key: "archive", label: "Archive", x: 7.1, y: 1.0, z: 0.3, size: 1.0, color: palette.archive }
 ];
 
 const nodeMeshes = new Map();
@@ -247,7 +247,7 @@ const stepData = {
   claude: {
     title: "Claude asks the bridge",
     node: "claude",
-    copy: "Claude sees tools like gemini_prompt and gemini_create_image. it reads the guide first so it does not waste your Gemini runs."
+    copy: "Claude sees tools like gemini_prompt and gemini_create_image. It reads the guide first so it does not waste your Gemini runs."
   },
   mcp: {
     title: "MCP picks the mode",
@@ -255,12 +255,12 @@ const stepData = {
     copy: "The MCP server maps the request to chat, image, video, music, Canvas, Guided Learning, or file upload."
   },
   browser: {
-    title: "Browser does the boring work",
+    title: "Browser handles the UI",
     node: "browser",
-    copy: "Chrome or Edge opens with a separate local profile. it can run offscreen so it does not jump in front of your work."
+    copy: "Chrome or Edge opens with a separate local profile. It can run offscreen so it does not jump in front of your work."
   },
   archive: {
-    title: "Stuff gets saved",
+    title: "Outputs are saved",
     node: "archive",
     copy: "Each run becomes a dated folder with prompt.txt, response.md, result.json, page.png, and media files when Gemini exposes them."
   }
@@ -313,7 +313,7 @@ document.querySelectorAll(".mode-pill").forEach((button) => {
     document.querySelectorAll(".mode-pill").forEach((item) => item.classList.toggle("active", item === button));
     fakeOutput.querySelector("span").textContent = "mode picked";
     fakeOutput.querySelector("strong").textContent = modeToTool[selectedMode];
-    fakeOutput.querySelector("p").textContent = "now press run and watch the path light up.";
+    fakeOutput.querySelector("p").textContent = "Press run to see how the request moves through the bridge.";
   });
 });
 
@@ -327,7 +327,7 @@ async function runSimulation() {
   runHops.forEach((hop) => hop.classList.remove("active", "done"));
 
   const path = ["claude", "mcp", "browser", "gemini", "archive"];
-  const prompt = simPrompt.value.trim() || "make something cool";
+  const prompt = simPrompt.value.trim() || "make something useful";
   fakeOutput.querySelector("span").textContent = "starting";
   fakeOutput.querySelector("strong").textContent = modeToTool[selectedMode];
   fakeOutput.querySelector("p").textContent = "Claude is sending the clean prompt through MCP.";
@@ -345,10 +345,10 @@ async function runSimulation() {
   runHops.forEach((hop) => hop.classList.remove("active"));
   fakeOutput.querySelector("span").textContent = "saved";
   fakeOutput.querySelector("strong").textContent = `stuff/${new Date().toISOString().slice(0, 10)}_${selectedMode}/`;
-  fakeOutput.querySelector("p").textContent = `prompt saved: "${prompt.slice(0, 86)}${prompt.length > 86 ? "..." : ""}"`;
+  fakeOutput.querySelector("p").textContent = `Prompt saved: "${prompt.slice(0, 86)}${prompt.length > 86 ? "..." : ""}"`;
   setActiveNode("archive");
   runButton.disabled = false;
-  runButton.textContent = "run it again";
+  runButton.textContent = "run again";
 }
 
 runButton.addEventListener("click", runSimulation);
