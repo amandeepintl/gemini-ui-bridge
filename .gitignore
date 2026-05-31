@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# local secrets / config
+.env
+.env.*
+!.env.example
+
+# browser profiles can contain cookies and login sessions
+profiles/*
+!profiles/.gitkeep
+
+# generated stuff from Gemini can contain private prompts, screenshots, media
+stuff/*
+!stuff/.gitkeep
+downloads/
+
+# local noise
+*.log
+.DS_Store
+Thumbs.db
