@@ -1,6 +1,6 @@
 # gemini ui bridge
 
-> use ur Gemini web plan from other local AI apps without paying for the Gemini API.
+> use ur Gemini web plan from other local AI apps ( specially Claude Desktop ) without paying for the Gemini API.
 
 i made this because api pricing is annoying and sometimes u already have Gemini sitting open in the browser. this bridge lets an MCP client, like Claude Desktop, use the real Gemini website through your own signed-in Chrome/Edge profile.
 
