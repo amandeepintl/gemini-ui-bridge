@@ -18,10 +18,10 @@
       <span>Gemini UI Bridge</span>
     </a>
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="#flow">Flow</a>
+      <a href="#flow">How it works</a>
+      <a href="#simulator">Try it</a>
       <a href="#tools">Tools</a>
       <a href="#security">Security</a>
-      <a href="#setup">Setup</a>
     </nav>
     <button class="icon-button" id="motionToggle" type="button" aria-label="Pause 3D motion" title="Pause 3D motion">
       <span class="pause-icon" aria-hidden="true"></span>
@@ -33,15 +33,15 @@
       <canvas id="bridgeCanvas" aria-label="Interactive 3D bridge diagram"></canvas>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-content">
-        <p class="eyebrow">No paid API key. Local browser. MCP tools.</p>
-        <h1 id="hero-title">Make Claude talk to Gemini through your own browser.</h1>
+        <p class="eyebrow">no api bill. no magic. just your browser doing work.</p>
+        <h1 id="hero-title">make Claude use Gemini like u would.</h1>
         <p class="hero-copy">
-          A local bridge that opens Gemini web, pastes prompts, waits for the visible result,
-          saves the run, and hands it back to your AI app.
+          this thing opens Gemini web, pastes the prompt, waits for the result,
+          saves the stuff, and gives it back to your AI app.
         </p>
         <div class="hero-actions">
-          <a class="primary-action" href="#setup">Start the walkthrough</a>
-          <button class="secondary-action" type="button" data-copy="npm run security-check">Copy safety check</button>
+          <a class="primary-action" href="#simulator">try the fake run</a>
+          <button class="secondary-action" type="button" data-copy="npm run site">copy run site</button>
         </div>
       </div>
       <aside class="hero-panel" aria-label="Live bridge stats">
@@ -50,7 +50,7 @@
           <strong>18</strong>
         </div>
         <div class="panel-row">
-          <span>Private folders</span>
+          <span>Private stuff</span>
           <strong>ignored</strong>
         </div>
         <div class="panel-row">
@@ -58,17 +58,17 @@
           <strong>offscreen</strong>
         </div>
       </aside>
-      <div class="scroll-hint">Scroll for the actual map</div>
+      <div class="scroll-hint">scroll, click, mess with it</div>
     </section>
 
     <section class="section intro-band" aria-labelledby="truth-title">
-      <div class="section-kicker">The honest version</div>
+      <div class="section-kicker">real talk</div>
       <div class="split">
         <div>
-          <h2 id="truth-title">This is a clever personal bridge, not a fake API.</h2>
+          <h2 id="truth-title">it is useful, but it is not some fake api god mode.</h2>
           <p>
-            It drives the Gemini website the way a careful human would. That makes it useful for a local
-            assistant workflow, but it also means login checks, UI changes, and media downloads can still need you.
+            it drives the Gemini website like a careful human. that makes it useful for a local
+            assistant workflow, but login checks, UI changes, and media downloads can still need u sometimes.
           </p>
         </div>
         <div class="rating-grid" aria-label="Project usefulness ratings">
@@ -81,10 +81,10 @@
     </section>
 
     <section class="section flow-section" id="flow" aria-labelledby="flow-title">
-      <div class="section-kicker">Interactive flow</div>
-      <h2 id="flow-title">Tap a step and the bridge map changes.</h2>
+      <div class="section-kicker">how the thing moves</div>
+      <h2 id="flow-title">tap a step and watch where the request goes.</h2>
       <p class="section-copy">
-        The bridge has one job: let another AI call Gemini without touching your password,
+        the bridge has one job: let another AI use Gemini without touching your password,
         cookies, or a paid API key.
       </p>
 
@@ -92,30 +92,30 @@
         <div class="flow-steps" role="list" aria-label="Bridge flow steps">
           <button class="flow-step active" type="button" data-step="claude" role="listitem">
             <span class="step-index">01</span>
-            <strong>Claude asks for a tool</strong>
-            <span>Claude calls MCP, not Gemini directly.</span>
+            <strong>Claude asks the bridge</strong>
+            <span>not Gemini directly. MCP is the middle guy.</span>
           </button>
           <button class="flow-step" type="button" data-step="mcp" role="listitem">
             <span class="step-index">02</span>
-            <strong>MCP chooses the Gemini mode</strong>
+            <strong>MCP picks the mode</strong>
             <span>chat, image, video, music, canvas, upload.</span>
           </button>
           <button class="flow-step" type="button" data-step="browser" role="listitem">
             <span class="step-index">03</span>
-            <strong>Browser does the work</strong>
-            <span>It pastes the prompt into your signed-in Gemini UI.</span>
+            <strong>browser does the boring work</strong>
+            <span>it pastes the prompt into your signed-in Gemini UI.</span>
           </button>
           <button class="flow-step" type="button" data-step="archive" role="listitem">
             <span class="step-index">04</span>
-            <strong>Stuff gets saved</strong>
-            <span>Every run gets prompt, response, screenshot, JSON, media.</span>
+            <strong>stuff gets saved</strong>
+            <span>prompt, response, screenshot, JSON, media if possible.</span>
           </button>
         </div>
 
         <div class="flow-stage" aria-live="polite">
           <div class="stage-header">
             <span id="stageLabel">Current step</span>
-            <strong id="stageTitle">Claude asks for a tool</strong>
+            <strong id="stageTitle">Claude asks the bridge</strong>
           </div>
           <div class="stage-diagram" id="stageDiagram">
             <span class="node active" data-node="claude">Claude</span>
@@ -129,66 +129,101 @@
             <span class="node" data-node="archive">Stuff</span>
           </div>
           <p id="stageCopy">
-            Claude sees named MCP tools like gemini_prompt and gemini_create_image. The bridge guide tells it how to use them carefully.
+            Claude sees tools like gemini_prompt and gemini_create_image. it reads the guide first so it does not waste your Gemini runs.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section simulator-section" id="simulator" aria-labelledby="sim-title">
+      <div class="section-kicker">click it, dont just read it</div>
+      <h2 id="sim-title">run a fake Gemini job and see what happens.</h2>
+      <p class="section-copy">
+        this is not calling Gemini. it is a small simulator so u understand the whole flow before connecting the real thing.
+      </p>
+      <div class="simulator">
+        <div class="sim-card prompt-card">
+          <span class="sim-label">your idea</span>
+          <textarea id="simPrompt" spellcheck="false">make a cinematic image prompt for a neon rainy street</textarea>
+          <div class="mode-row" aria-label="Choose fake Gemini mode">
+            <button class="mode-pill active" type="button" data-mode="chat">chat</button>
+            <button class="mode-pill" type="button" data-mode="image">image</button>
+            <button class="mode-pill" type="button" data-mode="video">video</button>
+            <button class="mode-pill" type="button" data-mode="music">music</button>
+          </div>
+          <button class="run-button" id="runSimulation" type="button">run the fake bridge</button>
+        </div>
+        <div class="sim-card run-card">
+          <div class="run-track" aria-live="polite">
+            <div class="run-hop" data-hop="claude"><span>1</span><strong>Claude</strong><em>reads guide</em></div>
+            <div class="run-hop" data-hop="mcp"><span>2</span><strong>MCP</strong><em>chooses tool</em></div>
+            <div class="run-hop" data-hop="browser"><span>3</span><strong>Browser</strong><em>pastes prompt</em></div>
+            <div class="run-hop" data-hop="gemini"><span>4</span><strong>Gemini</strong><em>makes result</em></div>
+            <div class="run-hop" data-hop="archive"><span>5</span><strong>Stuff</strong><em>saves files</em></div>
+          </div>
+          <div class="fake-output" id="fakeOutput">
+            <span>waiting</span>
+            <strong>press run and watch it move</strong>
+            <p>u will see which tool gets used and what folder gets saved.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section media-section" aria-labelledby="screens-title">
-      <div class="section-kicker">Real visuals, sanitized</div>
-      <h2 id="screens-title">The README screenshots are safe on purpose.</h2>
+      <div class="section-kicker">what it looks like</div>
+      <h2 id="screens-title">browser, gallery, Claude tools. simple.</h2>
       <p class="section-copy">
-        One screenshot is cropped from a real run. The others are generated preview screens so your account,
-        chat list, cookies, and local prompts do not leak.
+        these show the parts u actually care about: Gemini answering, stuff getting saved,
+        and Claude seeing the MCP tools.
       </p>
       <div class="showcase-grid">
         <figure class="showcase wide">
-          <img src="assets/gemini-chat-sanitized.png" alt="Sanitized Gemini UI prompt and response">
-          <figcaption>Gemini UI, cropped to remove account/sidebar data.</figcaption>
+          <img src="assets/gemini-chat.png" alt="Gemini UI prompt and response" loading="lazy" decoding="async">
+          <figcaption>Gemini answers inside the browser.</figcaption>
         </figure>
         <figure class="showcase">
-          <img src="assets/stuff-gallery-preview.png" alt="Saved-output gallery preview">
-          <figcaption>The local stuff gallery explains where files go.</figcaption>
+          <img src="assets/stuff-gallery-preview.png" alt="Saved-output gallery preview" loading="lazy" decoding="async">
+          <figcaption>the stuff gallery keeps runs easy to review.</figcaption>
         </figure>
         <figure class="showcase">
-          <img src="assets/claude-tool-list-preview.png" alt="Claude MCP tools preview">
-          <figcaption>A safe Claude-style MCP tool preview.</figcaption>
+          <img src="assets/claude-tool-list-preview.png" alt="Claude MCP tools preview" loading="lazy" decoding="async">
+          <figcaption>Claude gets tools instead of guessing what to click.</figcaption>
         </figure>
       </div>
     </section>
 
     <section class="section tools-section" id="tools" aria-labelledby="tools-title">
-      <div class="section-kicker">Tool console</div>
+      <div class="section-kicker">tool console</div>
       <div class="split">
         <div>
-          <h2 id="tools-title">Pick a Gemini mode.</h2>
+          <h2 id="tools-title">pick what u want Gemini to do.</h2>
           <p>
-            The MCP exposes focused tools so Claude does not have to guess which part of Gemini to open.
-            Click a tool below to see the recommended use.
+            Claude gets focused tools, so it does not randomly click around Gemini like it is lost.
+            press a tool and see when to use it.
           </p>
         </div>
         <div class="tool-output" id="toolOutput">
-          <span>Selected tool</span>
+          <span>selected tool</span>
           <strong>gemini_prompt</strong>
-          <p>Normal text chat through Gemini web. Best first test after login.</p>
+          <p>normal text chat through Gemini web. best first test after login.</p>
         </div>
       </div>
       <div class="tool-grid" aria-label="Gemini MCP tools">
-        <button class="tool-chip active" type="button" data-tool="gemini_prompt" data-desc="Normal text chat through Gemini web. Best first test after login.">gemini_prompt</button>
-        <button class="tool-chip" type="button" data-tool="gemini_create_image" data-desc="Opens Create image and sends one polished prompt. Great for visual ideas.">gemini_create_image</button>
-        <button class="tool-chip" type="button" data-tool="gemini_create_video" data-desc="Opens Create video. Use clear motion, camera, duration, and constraints.">gemini_create_video</button>
-        <button class="tool-chip" type="button" data-tool="gemini_create_music" data-desc="Opens Create music. Describe genre, mood, tempo, instruments, and vocals.">gemini_create_music</button>
-        <button class="tool-chip" type="button" data-tool="gemini_upload_file" data-desc="Uploads a local file to Gemini and optionally asks a prompt about it.">gemini_upload_file</button>
-        <button class="tool-chip" type="button" data-tool="gemini_open_stuff" data-desc="Opens the gallery or newest archive folder so you can inspect outputs.">gemini_open_stuff</button>
+        <button class="tool-chip active" type="button" data-tool="gemini_prompt" data-desc="normal text chat through Gemini web. best first test after login.">gemini_prompt</button>
+        <button class="tool-chip" type="button" data-tool="gemini_create_image" data-desc="opens Create image and sends one polished prompt. use this for visual stuff.">gemini_create_image</button>
+        <button class="tool-chip" type="button" data-tool="gemini_create_video" data-desc="opens Create video. give it motion, camera, duration, and what not to do.">gemini_create_video</button>
+        <button class="tool-chip" type="button" data-tool="gemini_create_music" data-desc="opens Create music. describe genre, mood, tempo, instruments, vocals.">gemini_create_music</button>
+        <button class="tool-chip" type="button" data-tool="gemini_upload_file" data-desc="uploads a local file and optionally asks Gemini about it.">gemini_upload_file</button>
+        <button class="tool-chip" type="button" data-tool="gemini_open_stuff" data-desc="opens the gallery or latest run folder so u can inspect outputs.">gemini_open_stuff</button>
       </div>
     </section>
 
     <section class="section security-section" id="security" aria-labelledby="security-title">
-      <div class="section-kicker">Security first</div>
-      <h2 id="security-title">The stuff that should never go to GitHub.</h2>
+      <div class="section-kicker">dont get hacked</div>
+      <h2 id="security-title">this stuff never goes to GitHub.</h2>
       <p class="section-copy">
-        This project controls a real browser profile. That profile is basically a logged-in browser, so it stays local.
+        this project controls a real browser profile. that profile is basically a logged-in browser, so it stays local.
       </p>
       <div class="security-board">
         <div class="security-item safe">
@@ -221,8 +256,8 @@ git push</code></pre>
     </section>
 
     <section class="section setup-section" id="setup" aria-labelledby="setup-title">
-      <div class="section-kicker">Setup path</div>
-      <h2 id="setup-title">Four commands, then Claude can see the tools.</h2>
+      <div class="section-kicker">setup path</div>
+      <h2 id="setup-title">four commands, then Claude can see the tools.</h2>
       <div class="command-stack">
         <button type="button" data-copy="git clone https://github.com/amandeepintl/gemini-ui-bridge.git">git clone https://github.com/amandeepintl/gemini-ui-bridge.git</button>
         <button type="button" data-copy="npm install">npm install</button>
@@ -230,7 +265,7 @@ git push</code></pre>
         <button type="button" data-copy="npm run launch-browser">npm run launch-browser</button>
       </div>
       <p class="setup-note">
-        After login, add the MCP config to Claude Desktop and ask it: "Call gemini_read_guide, then gemini_status."
+        after login, add the MCP config to Claude Desktop and ask it: "Call gemini_read_guide, then gemini_status."
       </p>
     </section>
   </main>

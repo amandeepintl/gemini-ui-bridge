@@ -1,17 +1,17 @@
-# Gemini UI Bridge
+# gemini ui bridge
 
-> use your Gemini web plan from other local AI apps, without paying for the Gemini API.
+> use ur Gemini web plan from other local AI apps without paying for the Gemini API.
 
-I made this because API pricing is annoying and sometimes you already have Gemini open in the browser. This bridge lets an MCP client, like Claude Desktop, drive the Gemini website through your own signed-in Chrome/Edge profile.
+i made this because api pricing is annoying and sometimes u already have Gemini sitting open in the browser. this bridge lets an MCP client, like Claude Desktop, use the real Gemini website through your own signed-in Chrome/Edge profile.
 
-It is local, browser-based, and honest about its limits. No Gemini API key. No paid API calls. No secret cookie export.
+it is local, browser-based, and honest about the limits. no Gemini API key, no paid API calls, no weird cookie export stuff.
 
-![Sanitized Gemini UI screenshot](docs/assets/gemini-chat-sanitized.png)
+![Gemini UI bridge screenshot](docs/assets/gemini-chat.png)
 
 <p>
   <b>Status:</b> personal tool, not production infra<br>
   <b>Works through:</b> Chrome/Edge + Playwright + MCP<br>
-  <b>Best for:</b> personal assistant workflows, prompt testing, images/videos/music through Gemini UI
+  <b>Best for:</b> making Claude use Gemini web without another api bill
 </p>
 
 ## quick map
@@ -42,9 +42,9 @@ It is local, browser-based, and honest about its limits. No Gemini API key. No p
 | hide the browser offscreen | yes |
 | official Gemini API replacement | no |
 
-This is useful if you want Claude or another local AI to say: "ask Gemini this", "make an image prompt", "open Gemini image mode", "save the output", etc.
+this is useful if u want Claude or another local AI to say: "ask Gemini this", "make an image prompt", "open Gemini image mode", "save the output", and stuff like that.
 
-It is not useful if you need 24/7 production reliability. Gemini can change its UI and break browser automation. That is the trade.
+it is not useful if u need 24/7 production reliability. Gemini can change the UI and break browser automation. that is the trade.
 
 ## how it works
 
@@ -62,47 +62,47 @@ flowchart LR
 <details open>
 <summary><b>the short version</b></summary>
 
-1. You sign in to Gemini yourself in a separate local browser profile.
+1. u sign in to Gemini yourself in a separate local browser profile.
 2. Claude calls an MCP tool like `gemini_prompt` or `gemini_create_image`.
-3. The bridge pastes the prompt into Gemini.
-4. It waits for the visible response.
-5. It saves the run into `stuff/YYYY-MM-DD_HH-mm-ss-SSS_tool-name/`.
-6. It returns the response and archive folder back to Claude.
+3. the bridge pastes the prompt into Gemini.
+4. it waits for the visible response.
+5. it saves the run into `stuff/YYYY-MM-DD_HH-mm-ss-SSS_tool-name/`.
+6. it returns the response and archive folder back to Claude.
 
 </details>
 
 <details>
 <summary><b>why this exists</b></summary>
 
-Because sometimes you do not want another paid API bill. If you already have access to Gemini web features, this gives your local AI apps a way to use that browser session.
+because sometimes u do not want another paid API bill. if u already have access to Gemini web features, this gives your local AI apps a way to use that browser session.
 
-But it still behaves like browser automation, not a clean API. So it should be used slowly and respectfully, like a human using the website.
+but it still behaves like browser automation, not a clean API. so use it slowly and normally, like a human using the website.
 
 </details>
 
-## screenshots
+## screenshots / stuff
 
-These are sanitized previews. Real account names, chat sidebars, browser cookies, generated files, and private prompts are not committed.
+just the useful visuals: Gemini answering, the stuff gallery, terminal check, and Claude seeing tools.
 
 ### Gemini UI run
 
-![Gemini prompt and response preview](docs/assets/gemini-chat-sanitized.png)
+![Gemini prompt and response](docs/assets/gemini-chat.png)
 
 ### Saved-output gallery
 
-![Stuff gallery preview](docs/assets/stuff-gallery-preview.png)
+![Stuff gallery](docs/assets/stuff-gallery-preview.png)
 
 ### Terminal / safety check
 
-![Terminal safety preview](docs/assets/terminal-preview.png)
+![Terminal check](docs/assets/terminal-preview.png)
 
 ### Claude sees MCP tools
 
-![Claude MCP tool preview](docs/assets/claude-tool-list-preview.png)
+![Claude MCP tools](docs/assets/claude-tool-list-preview.png)
 
 ## interactive website
 
-There is also a more visual 3D explainer site in `docs/`.
+there is also a more visual 3D explainer site in `docs/`.
 
 Run it locally:
 
@@ -116,7 +116,7 @@ Then open:
 http://127.0.0.1:4173
 ```
 
-It explains the whole flow with a 3D bridge map, clickable steps, tool cards, screenshots, and the security checklist.
+it explains the whole thing with a 3D bridge map, a fake run simulator, clickable tool cards, screenshots, and the security checklist.
 
 ## install
 
@@ -145,7 +145,7 @@ Or double-click:
 OPEN_GEMINI_LOGIN.bat
 ```
 
-Sign in manually. The login stays inside `profiles/real-browser`, which is ignored by git.
+sign in manually. the login stays inside `profiles/real-browser`, which is ignored by git.
 
 </details>
 
@@ -168,7 +168,7 @@ START_BRIDGE_ULTRA_LOW.bat
 
 ## claude desktop setup
 
-Add this MCP server to Claude Desktop. Change the path to wherever you cloned the repo:
+add this MCP server to Claude Desktop. change the path to wherever u cloned the repo:
 
 ```json
 {
@@ -194,7 +194,7 @@ Add this MCP server to Claude Desktop. Change the path to wherever you cloned th
 }
 ```
 
-Then restart Claude and ask:
+then restart Claude and ask:
 
 ```text
 Call gemini_read_guide, then gemini_status.
@@ -271,11 +271,11 @@ HIDE_GEMINI_BROWSER.bat
 SHOW_GEMINI_BROWSER.bat
 ```
 
-The hidden mode moves the browser offscreen and stops it from jumping over your work. It is convenience, not security magic.
+the hidden mode moves the browser offscreen and stops it from jumping over your work. it is convenience, not security magic.
 
 ## saved outputs
 
-Every successful run gets a folder like:
+every successful run gets a folder like:
 
 ```text
 stuff/YYYY-MM-DD_HH-mm-ss-SSS_tool-name/
@@ -293,7 +293,7 @@ page.png
 media/
 ```
 
-Failed runs are saved too:
+failed runs are saved too:
 
 ```text
 stuff/YYYY-MM-DD_HH-mm-ss-SSS_error_tool-name/
@@ -313,9 +313,9 @@ OPEN_STUFF_GALLERY.bat
 
 ## security rules
 
-This repo is designed to avoid uploading private local stuff.
+this repo is designed to avoid uploading private local stuff.
 
-Never commit:
+never commit:
 
 - `.env`
 - `profiles/`
@@ -325,18 +325,18 @@ Never commit:
 - exported Claude config files with personal paths
 - tokens, passwords, cookies, API keys
 
-Before pushing:
+before pushing:
 
 ```powershell
 npm run security-check
 git status --ignored
 ```
 
-The security check blocks obvious mistakes, but still look at `git status`. Your browser profile is basically a logged-in browser, so treat it like one.
+the security check blocks obvious mistakes, but still look at `git status`. your browser profile is basically a logged-in browser, so treat it like one.
 
 ## zero-cost quality upgrades
 
-The way to make this better for free is not "spam Gemini harder". It is fewer wasted calls.
+the way to make this better for free is not "spam Gemini harder". it is fewer wasted calls.
 
 Good flow:
 
@@ -348,7 +348,7 @@ flowchart TD
   D --> E["review gallery before regenerating"]
 ```
 
-Use this pattern:
+use this pattern:
 
 - ask Claude to improve/check the prompt first
 - send Gemini one strong final prompt
@@ -356,7 +356,7 @@ Use this pattern:
 - for media, include aspect ratio, duration, style, camera, mood, and negative constraints
 - do not ask Gemini for shorter output unless you actually want shorter output
 
-Same limits, better hit rate.
+same limits, better hit rate.
 
 ## honest rating
 
@@ -367,7 +367,7 @@ Same limits, better hit rate.
 | production integration | 2/10 |
 | official API replacement | 3/10 |
 
-That is the truth. It is useful, but it is still a browser bridge.
+that is the truth. it is useful, but it is still a browser bridge.
 
 ## license
 
